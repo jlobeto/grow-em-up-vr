@@ -19,7 +19,6 @@ public class HandsController : MonoBehaviour
 
     private void OnDisable()
     {
-        
         gripInputAction.action.performed -= GripPressed;
         triggerInputAction.action.performed -= TriggerPressed;
     }
