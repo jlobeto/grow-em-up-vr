@@ -15,7 +15,6 @@ public class CharacterGunManager : MonoBehaviour
 
     public void GunTook(SelectEnterEventArgs args)
     {
-        //Debug.Log(args.interactableObject.transform.gameObject.name);
         if (IsInteractingWithGun(args))
         {
             rightHandTrigger.action.performed += RightHandTriggerPerformed;

@@ -22,6 +22,7 @@ public class BaseBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"HIT: layer:{LayerMask.LayerToName(other.gameObject.layer)}");
         if(other.gameObject.layer != LayerMask.NameToLayer("gun"))
             isMoving = false;
     }
