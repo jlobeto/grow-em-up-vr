@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,16 +11,20 @@ public class CharacterGunManager : MonoBehaviour
 {
     [SerializeField] private InputActionReference rightHandTrigger;
     [SerializeField] private InputActionReference leftHandTrigger;
-    [SerializeField] private GameEvent gunTriggeredEvent;
-    [SerializeField] private GameEvent gunReleasedTriggerEvent;
+    [SerializeField] private RecoilSystem[] recoilSystems;
+    [SerializeField] private GameEvent joystickTriggerPressedEvent;
+    [SerializeField] private GameEvent joystickTriggerReleasedTriggerEvent;
+    [SerializeField] private FloatGameEvent gunTriggeredEvent;
+    
+    bool _holdingWithRightHand;
 
     public void GunTook(SelectEnterEventArgs args)
     {
-        //Debug.Log(args.interactableObject.transform.gameObject.name);
         if (IsInteractingWithGun(args))
         {
             rightHandTrigger.action.performed += RightHandTriggerPerformed;
             leftHandTrigger.action.performed += LeftHandTriggerPerformed;
+            gunTriggeredEvent.AddListener(GunTriggeredEvent);
         }
     }
 
@@ -29,6 +34,8 @@ public class CharacterGunManager : MonoBehaviour
         {
             rightHandTrigger.action.performed -= RightHandTriggerPerformed;
             leftHandTrigger.action.performed -= LeftHandTriggerPerformed;
+            gunTriggeredEvent.RemoveListener(GunTriggeredEvent);
+
         }
     }
 
@@ -51,21 +58,27 @@ public class CharacterGunManager : MonoBehaviour
         if(!IsTriggerPressed(triggerValue))
             return;
         
-        gunTriggeredEvent.Raise();
+        joystickTriggerPressedEvent.Raise();
     }
 
     private void TryRelease(float val)
     {
         if (IsTriggerReleased(val))
         {
-            gunReleasedTriggerEvent.Raise();
+            joystickTriggerReleasedTriggerEvent.Raise();
         }
     }
 
     bool IsInteractingWithGun(BaseInteractionEventArgs args)
     {
         BaseGun gun;
-        return args.interactableObject.transform.TryGetComponent(out gun);
+        var exists = args.interactableObject.transform.TryGetComponent(out gun);
+        
+        if (exists)
+            _holdingWithRightHand = args.interactorObject.transform.gameObject.CompareTag("rightController"); 
+        
+
+        return exists;
     }
     
     bool IsTriggerPressed(float value)
@@ -75,6 +88,12 @@ public class CharacterGunManager : MonoBehaviour
 
     bool IsTriggerReleased(float value)
     {
-        return value < .1f;
+        return value < .3f;
+    }
+    
+    private void GunTriggeredEvent(float recoilForce)
+    {
+        var recoil = recoilSystems.FirstOrDefault(i => i.IsRightHand == _holdingWithRightHand || !i.IsRightHand && !_holdingWithRightHand);
+        recoil.Recoil(recoilForce);
     }
 }

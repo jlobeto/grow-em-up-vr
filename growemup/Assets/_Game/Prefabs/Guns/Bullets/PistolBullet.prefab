@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7888201153086244122}
   - component: {fileID: 7888201153086244117}
+  - component: {fileID: 732155781290681523}
   m_Layer: 0
   m_Name: PistolBullet
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7888201153086244123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.009, y: 0.57, z: 0.747}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -46,6 +47,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseBulletSO: {fileID: 11400000, guid: 6dd89e3bc21831f48a728ca67dd6bad4, type: 2}
+--- !u!136 &732155781290681523
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7888201153086244123}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.008867893
+  m_Height: 0.03660488
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.00093352795}
 --- !u!1 &7888201153668181634
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +72,6 @@ GameObject:
   - component: {fileID: 7888201153668181662}
   - component: {fileID: 7888201153668181663}
   - component: {fileID: 7888201153668181660}
-  - component: {fileID: 7888201153668181661}
   m_Layer: 0
   m_Name: pistolBullet_capsule
   m_TagString: Untagged
@@ -130,17 +144,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &7888201153668181661
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7888201153668181634}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}

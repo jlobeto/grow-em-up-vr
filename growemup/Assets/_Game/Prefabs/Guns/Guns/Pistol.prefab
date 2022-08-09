@@ -409,6 +409,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseGunSO: {fileID: 11400000, guid: 666b185eaf65eae4c8639d7e4b8237f9, type: 2}
   bulletSpawnPoint: {fileID: 4718000326951611384}
-  gunTriggeredEvent: {fileID: 11400000, guid: a13fb5499c55d1b42bc82d8febda831b, type: 2}
+  triggerPressedEvent: {fileID: 11400000, guid: a13fb5499c55d1b42bc82d8febda831b,
+    type: 2}
   gunTriggerReleasedEvent: {fileID: 11400000, guid: 60b2c3284c7079142ac72c77c3af0270,
     type: 2}
+  gunTriggeredEvent: {fileID: 11400000, guid: 6e9457568b5d047488b0c1eff62778c5, type: 2}
