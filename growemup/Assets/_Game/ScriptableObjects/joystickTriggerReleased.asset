@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e314e1886dabcc147ae412d8e6ef3d5e, type: 3}
-  m_Name: pistol
+  m_Script: {fileID: 11500000, guid: 7a78c7052899406438e9fc79486b45c0, type: 3}
+  m_Name: joystickTriggerReleased
   m_EditorClassIdentifier: 
-  reloadTime: 2
-  ammoAmount: 100
-  bulletPrefab: {fileID: 7888201153086244117, guid: 3cd1482bb0547664d8d990da3a56da80,
-    type: 3}
-  recoilForce: 1.5
+  DeveloperDescription:
+    _value: 

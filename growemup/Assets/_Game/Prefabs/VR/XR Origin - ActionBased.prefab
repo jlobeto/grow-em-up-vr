@@ -556,8 +556,9 @@ GameObject:
   - component: {fileID: 9001191148372475567}
   - component: {fileID: 6048441517452080298}
   - component: {fileID: 1341042391151678327}
+  - component: {fileID: 1867841865}
   m_Layer: 0
-  m_Name: AttachTransform
+  m_Name: L_AttachTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -691,6 +692,20 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1867841865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3924959312701030792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf645a8b909282f43be5049e1c534d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRightHand: 0
+  attachTransformRB: {fileID: 6048441517452080298}
 --- !u!1 &4688776806014344701
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,9 +948,14 @@ MonoBehaviour:
     type: 3}
   leftHandTrigger: {fileID: 5282241828717446929, guid: c348712bda248c246b8c49b3db54643f,
     type: 3}
-  gunTriggeredEvent: {fileID: 11400000, guid: a13fb5499c55d1b42bc82d8febda831b, type: 2}
-  gunReleasedTriggerEvent: {fileID: 11400000, guid: 60b2c3284c7079142ac72c77c3af0270,
+  recoilSystems:
+  - {fileID: 1867841865}
+  - {fileID: 903775604}
+  joystickTriggerPressedEvent: {fileID: 11400000, guid: a13fb5499c55d1b42bc82d8febda831b,
     type: 2}
+  joystickTriggerReleasedTriggerEvent: {fileID: 11400000, guid: 60b2c3284c7079142ac72c77c3af0270,
+    type: 2}
+  gunTriggeredEvent: {fileID: 11400000, guid: 6e9457568b5d047488b0c1eff62778c5, type: 2}
 --- !u!1 &6668782338251746631
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,8 +967,9 @@ GameObject:
   - component: {fileID: 2543565589449449846}
   - component: {fileID: 5330737655318751702}
   - component: {fileID: 20621244632998972}
+  - component: {fileID: 903775604}
   m_Layer: 0
-  m_Name: AttachTransform
+  m_Name: R_AttachTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1082,6 +1103,20 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &903775604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6668782338251746631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf645a8b909282f43be5049e1c534d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRightHand: 1
+  attachTransformRB: {fileID: 5330737655318751702}
 --- !u!1 &6790473305045855312
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1132,7 @@ GameObject:
   - component: {fileID: 2783405656272021636}
   m_Layer: 0
   m_Name: RightHand Controller
-  m_TagString: Untagged
+  m_TagString: rightController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1442,7 +1477,7 @@ GameObject:
   - component: {fileID: 5160093260991648841}
   m_Layer: 0
   m_Name: LeftHand Controller
-  m_TagString: Untagged
+  m_TagString: leftController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

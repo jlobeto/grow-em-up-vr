@@ -8,8 +8,9 @@ public class BaseGun : MonoBehaviour
 {
     [SerializeField] protected BaseGunSO baseGunSO;
     [SerializeField] protected Transform bulletSpawnPoint;
-    [SerializeField] protected GameEvent gunTriggeredEvent;
+    [SerializeField] protected GameEvent triggerPressedEvent;
     [SerializeField] protected GameEvent gunTriggerReleasedEvent;
+    [SerializeField] protected FloatGameEvent gunTriggeredEvent;
 
     protected int _currentAmmo;
     protected bool _isShooting;
@@ -21,13 +22,13 @@ public class BaseGun : MonoBehaviour
 
     public void GunGrabbed()
     {
-        gunTriggeredEvent.AddListener(Shoot);
+        triggerPressedEvent.AddListener(Shoot);
         gunTriggerReleasedEvent.AddListener(ReleaseTrigger);
     }
 
     public void GunDropped()
     {
-        gunTriggeredEvent.RemoveListener(Shoot);
+        triggerPressedEvent.RemoveListener(Shoot);
         gunTriggerReleasedEvent.RemoveListener(ReleaseTrigger);
     }
 
@@ -48,6 +49,7 @@ public class BaseGun : MonoBehaviour
         _currentAmmo--;
         
         Instantiate(baseGunSO.bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        gunTriggeredEvent.Raise(baseGunSO.recoilForce);
     }
     
     private void ReleaseTrigger()
