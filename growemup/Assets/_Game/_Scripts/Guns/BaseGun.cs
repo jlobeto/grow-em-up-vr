@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class BaseGun : MonoBehaviour
     [SerializeField] protected Transform bulletSpawnPoint;
     [SerializeField] protected GameEvent triggerPressedEvent;
     [SerializeField] protected GameEvent gunTriggerReleasedEvent;
-    [SerializeField] protected FloatGameEvent gunTriggeredEvent;
+    [SerializeField] protected StringGameEvent gunTriggeredEvent;
 
     protected int _currentAmmo;
     protected bool _isShooting;
@@ -49,7 +50,15 @@ public class BaseGun : MonoBehaviour
         _currentAmmo--;
         
         Instantiate(baseGunSO.bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        gunTriggeredEvent.Raise(baseGunSO.recoilForce);
+
+        object parameters = new
+        {
+            recoilForce = baseGunSO.recoilForce,
+            hapticForce = baseGunSO.hapticForce,
+            hapticDuration = baseGunSO.hapticDuration
+        };
+        
+        gunTriggeredEvent.Raise(JsonConvert.SerializeObject(parameters));
     }
     
     private void ReleaseTrigger()

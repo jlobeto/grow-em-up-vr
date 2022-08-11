@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 using ScriptableObjectArchitecture;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,10 +12,11 @@ public class CharacterGunManager : MonoBehaviour
 {
     [SerializeField] private InputActionReference rightHandTrigger;
     [SerializeField] private InputActionReference leftHandTrigger;
-    [SerializeField] private RecoilSystem[] recoilSystems;
+    [SerializeField] private RecoilForceSystem[] recoilSystems;
+    [SerializeField] private HapticsManager hapticsManager;
     [SerializeField] private GameEvent joystickTriggerPressedEvent;
     [SerializeField] private GameEvent joystickTriggerReleasedTriggerEvent;
-    [SerializeField] private FloatGameEvent gunTriggeredEvent;
+    [SerializeField] private StringGameEvent gunTriggeredEvent;
     
     bool _holdingWithRightHand;
 
@@ -91,9 +93,20 @@ public class CharacterGunManager : MonoBehaviour
         return value < .3f;
     }
     
-    private void GunTriggeredEvent(float recoilForce)
+    private void GunTriggeredEvent(string obj)
     {
+        var deserialized = JObject.Parse(obj);
+        
         var recoil = recoilSystems.FirstOrDefault(i => i.IsRightHand == _holdingWithRightHand || !i.IsRightHand && !_holdingWithRightHand);
-        recoil.Recoil(recoilForce);
+        recoil.Recoil(float.Parse(deserialized["recoilForce"].ToString()));
+
+        float hapticForce = float.Parse(deserialized["hapticForce"].ToString());
+        float hapticDuration = float.Parse(deserialized["hapticDuration"].ToString());
+        
+        Debug.Log($"haptic force {hapticForce}");
+        Debug.Log($"haptic dur {hapticDuration}");
+        
+        hapticsManager.DoHaptic(_holdingWithRightHand, hapticForce, hapticDuration);
+        
     }
 }

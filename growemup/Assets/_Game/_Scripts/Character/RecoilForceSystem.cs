@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RecoilSystem : MonoBehaviour
+public class RecoilForceSystem : MonoBehaviour
 {
     [SerializeField] private bool isRightHand;
     [SerializeField] private Rigidbody attachTransformRB;
