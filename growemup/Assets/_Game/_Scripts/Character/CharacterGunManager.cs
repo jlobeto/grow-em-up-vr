@@ -24,8 +24,13 @@ public class CharacterGunManager : MonoBehaviour
     {
         if (IsInteractingWithGun(args))
         {
-            rightHandTrigger.action.performed += RightHandTriggerPerformed;
-            leftHandTrigger.action.performed += LeftHandTriggerPerformed;
+            SetGrabbingHand(args);
+            
+            if(_holdingWithRightHand)
+                rightHandTrigger.action.performed += RightHandTriggerPerformed;
+            else
+                leftHandTrigger.action.performed += LeftHandTriggerPerformed;
+            
             gunTriggeredEvent.AddListener(GunTriggeredEvent);
         }
     }
@@ -34,8 +39,11 @@ public class CharacterGunManager : MonoBehaviour
     {
         if (IsInteractingWithGun(args))
         {
-            rightHandTrigger.action.performed -= RightHandTriggerPerformed;
-            leftHandTrigger.action.performed -= LeftHandTriggerPerformed;
+            if(_holdingWithRightHand)
+                rightHandTrigger.action.performed -= RightHandTriggerPerformed;
+            else
+                leftHandTrigger.action.performed -= LeftHandTriggerPerformed;
+            
             gunTriggeredEvent.RemoveListener(GunTriggeredEvent);
 
         }
@@ -75,12 +83,13 @@ public class CharacterGunManager : MonoBehaviour
     {
         BaseGun gun;
         var exists = args.interactableObject.transform.TryGetComponent(out gun);
-        
-        if (exists)
-            _holdingWithRightHand = args.interactorObject.transform.gameObject.CompareTag("rightController"); 
-        
 
         return exists;
+    }
+
+    void SetGrabbingHand(BaseInteractionEventArgs args)
+    {
+        _holdingWithRightHand = args.interactorObject.transform.gameObject.CompareTag("rightController");
     }
     
     bool IsTriggerPressed(float value)
